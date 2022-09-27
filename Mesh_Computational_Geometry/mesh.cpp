@@ -352,7 +352,7 @@ void Mesh::edge_flip(uint face_id1, uint face_id2){
 }
 
 void Mesh::insert_point(Point p){
-    for(auto fit = faces_infinit_begin(); fit != faces_infinit_end(); ++fit){
+    for(auto fit = faces_begin(); fit != faces_end(); ++fit){
         // double tmp = in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point);
         // if(is_face_infinit(*fit)){
         //     // uint offset = -1;//inner index of infinit point

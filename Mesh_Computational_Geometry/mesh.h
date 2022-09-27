@@ -14,22 +14,11 @@ class Point;
 class Vector;
 class Vertex;
 
-struct Iterator_on_faces_infinit;
-typedef Iterator_on_faces_infinit Iterator_on_vertices_infinit;
-struct Circulator_on_faces_infinit;
-struct Circulator_on_vertices_infinit;
+struct Iterator_on_faces;
+typedef Iterator_on_faces Iterator_on_vertices;
+struct Circulator_on_faces;
+struct Circulator_on_vertices;
 
-typedef Iterator_on_faces_infinit Iterator_on_faces;
-typedef Iterator_on_vertices_infinit Iterator_on_vertices;
-typedef Circulator_on_faces_infinit Circulator_on_faces;
-typedef Circulator_on_vertices_infinit Circulator_on_vertices;
-
-
-
-// struct Iterator_on_faces_infinit;
-// typedef Iterator_on_faces_infinit Iterator_on_vertices_infinit;
-// struct Circulator_on_faces_infinit;
-// struct Circulator_on_vertices_infinit;
 
 
 
@@ -105,8 +94,8 @@ void convert_tsv_to_rgb(std::vector<float>& hsv, std::vector<float>& rgb);
 
 class Mesh
 {
-    friend struct Circulator_on_faces_infinit;
-    friend struct Circulator_on_vertices_infinit;
+    friend struct Circulator_on_faces;
+    friend struct Circulator_on_vertices;
     friend class Embeded_Mesh;
   // (Q ou STL)Vector of vertices
   // (Q ou STL)Vector of faces
@@ -151,16 +140,6 @@ public:
     Circulator_on_faces circulate_on_face_end(uint vertex_id);
     Circulator_on_vertices circulate_on_vertex_begin(uint face_id);
     Circulator_on_vertices circulate_on_vertex_end(uint face_id);
-
-    Iterator_on_faces_infinit faces_infinit_begin();
-    Iterator_on_faces_infinit faces_infinit_end();
-    Iterator_on_vertices_infinit vertices_infinit_begin();
-    Iterator_on_vertices_infinit vertices_infinit_end();
-
-    Circulator_on_faces_infinit circulate_on_face_infinit_begin(uint vertex_id);
-    Circulator_on_faces_infinit circulate_on_face_infinit_end(uint vertex_id);
-    Circulator_on_vertices_infinit circulate_on_vertex_infinit_begin(uint face_id);
-    Circulator_on_vertices_infinit circulate_on_vertex_infinit_end(uint face_id);
 
     void set_vertex_color(uint vertex_id, float r, float g, float b);
     void set_face_color(uint face_id, float r, float g, float b);
@@ -222,7 +201,7 @@ double log1(double x);
 double direct_orientation(Point p1, Point p2, Point p3);
 double in_triangle(Point p, Point p1, Point p2, Point p3);
 
-struct Iterator_on_faces_infinit
+struct Iterator_on_faces
 {
     using iterator_category = std::forward_iterator_tag;
     using difference_type   = std::ptrdiff_t;
@@ -230,7 +209,7 @@ struct Iterator_on_faces_infinit
     using pointer           = uint*;  // or also value_type*
     using reference         = uint&;  // or also value_type&
 
-    Iterator_on_faces_infinit(uint id):face_id(id){};
+    Iterator_on_faces(uint id):face_id(id){};
 
     void print(){std::cout << "if : " << face_id;}
 
@@ -238,26 +217,26 @@ struct Iterator_on_faces_infinit
     pointer operator->() { return &face_id; }
 
     // Prefix increment
-    Iterator_on_faces_infinit& operator++() { face_id++; return *this; }
+    Iterator_on_faces& operator++() { face_id++; return *this; }
 
     // Postfix increment
-    Iterator_on_faces_infinit operator++(int) { Iterator_on_faces_infinit tmp = *this; ++(*this); return tmp; }
+    Iterator_on_faces operator++(int) { Iterator_on_faces tmp = *this; ++(*this); return tmp; }
 
-    friend bool operator== (const Iterator_on_faces_infinit& a, const Iterator_on_faces_infinit& b) { return a.face_id == b.face_id; };
-    friend bool operator!= (const Iterator_on_faces_infinit& a, const Iterator_on_faces_infinit& b) { return a.face_id != b.face_id; };
+    friend bool operator== (const Iterator_on_faces& a, const Iterator_on_faces& b) { return a.face_id == b.face_id; };
+    friend bool operator!= (const Iterator_on_faces& a, const Iterator_on_faces& b) { return a.face_id != b.face_id; };
 
 private:
     uint face_id;
 };
 
-struct Circulator_on_faces_infinit
+struct Circulator_on_faces
 {
     using iterator_category = std::forward_iterator_tag;
     using difference_type   = std::ptrdiff_t;
     using value_type        = uint;
     using pointer           = uint*;  // or also value_type*
     using reference         = uint&;  // or also value_type&
-    Circulator_on_faces_infinit(uint vertex_id, int rank, Mesh* mesh, uint first_face_id):vertex_id(vertex_id), rank(rank), mesh(mesh), first_face_id(first_face_id), face_id(first_face_id){};
+    Circulator_on_faces(uint vertex_id, int rank, Mesh* mesh, uint first_face_id):vertex_id(vertex_id), rank(rank), mesh(mesh), first_face_id(first_face_id), face_id(first_face_id){};
 
     void print(){std::cout << "f_id : " << face_id << ", v_id : " << vertex_id << ", rank : " << rank << ", first_f_id : " << first_face_id;}
 
@@ -265,13 +244,13 @@ struct Circulator_on_faces_infinit
     pointer operator->() { return &face_id; }
 
     // Prefix increment
-    Circulator_on_faces_infinit& operator++();
+    Circulator_on_faces& operator++();
 
     // Postfix increment
-    Circulator_on_faces_infinit operator++(int) { Circulator_on_faces_infinit tmp = *this; ++(*this); return tmp; }
+    Circulator_on_faces operator++(int) { Circulator_on_faces tmp = *this; ++(*this); return tmp; }
 
-    friend bool operator== (const Circulator_on_faces_infinit& a, const Circulator_on_faces_infinit& b) { return (a.face_id == b.face_id) && (a.rank == b.rank); };
-    friend bool operator!= (const Circulator_on_faces_infinit& a, const Circulator_on_faces_infinit& b) { return (a.face_id != b.face_id) || (a.rank != b.rank); };
+    friend bool operator== (const Circulator_on_faces& a, const Circulator_on_faces& b) { return (a.face_id == b.face_id) && (a.rank == b.rank); };
+    friend bool operator!= (const Circulator_on_faces& a, const Circulator_on_faces& b) { return (a.face_id != b.face_id) || (a.rank != b.rank); };
 
 private:
     uint vertex_id;
@@ -281,14 +260,14 @@ private:
     uint first_face_id;
 };
 
-struct Circulator_on_vertices_infinit
+struct Circulator_on_vertices
 {
     using iterator_category = std::forward_iterator_tag;
     using difference_type   = std::ptrdiff_t;
     using value_type        = uint;
     using pointer           = uint*;  // or also value_type*
     using reference         = uint&;  // or also value_type&
-    Circulator_on_vertices_infinit(uint face_id, int rank, Mesh* mesh):face_id(face_id), inner_vertex_id(0), rank(rank), mesh(mesh){};
+    Circulator_on_vertices(uint face_id, int rank, Mesh* mesh):face_id(face_id), inner_vertex_id(0), rank(rank), mesh(mesh){};
 
     void print(){std::cout << "f_id : " << face_id << ", rank : " << rank;}
 
@@ -296,13 +275,13 @@ struct Circulator_on_vertices_infinit
     pointer operator->();
 
     // Prefix increment
-    Circulator_on_vertices_infinit& operator++();
+    Circulator_on_vertices& operator++();
 
     // Postfix increment
-    Circulator_on_vertices_infinit operator++(int) { Circulator_on_vertices_infinit tmp = *this; ++(*this); return tmp; }
+    Circulator_on_vertices operator++(int) { Circulator_on_vertices tmp = *this; ++(*this); return tmp; }
 
-    friend bool operator== (const Circulator_on_vertices_infinit& a, const Circulator_on_vertices_infinit& b) { return (a.inner_vertex_id == b.inner_vertex_id) && (a.rank == b.rank); };
-    friend bool operator!= (const Circulator_on_vertices_infinit& a, const Circulator_on_vertices_infinit& b) { return (a.inner_vertex_id != b.inner_vertex_id) || (a.rank != b.rank); };
+    friend bool operator== (const Circulator_on_vertices& a, const Circulator_on_vertices& b) { return (a.inner_vertex_id == b.inner_vertex_id) && (a.rank == b.rank); };
+    friend bool operator!= (const Circulator_on_vertices& a, const Circulator_on_vertices& b) { return (a.inner_vertex_id != b.inner_vertex_id) || (a.rank != b.rank); };
 
 private:
     uint inner_vertex_id;
