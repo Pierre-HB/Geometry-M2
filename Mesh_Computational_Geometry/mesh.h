@@ -7,6 +7,7 @@
 #include <string>
 #include <tgmath.h>
 
+
 class Point;
 class Vector;
 class Vertex;

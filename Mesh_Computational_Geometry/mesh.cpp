@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <math.h>
+#include "OpenGLDisplayGeometricWorld.h"
 
 GeometricWorld::GeometricWorld()
 {
@@ -24,26 +25,27 @@ GeometricWorld::GeometricWorld()
     // mesh = Mesh(faces, vertices);
     std::string file = "../queen.off";
     // std::string file = "../tetra.off";
-    // mesh = Mesh(file);
-    // Embeded_Mesh emb_mesh = Embeded_Mesh(&mesh);
+    mesh = Mesh(file);
+    Embeded_Mesh emb_mesh = Embeded_Mesh(&mesh);
 
 
-    Point p1_ = Point(-0.5, -0.5, 0);
-    Point p2_ = Point(0.5, -0.5, 0);
-    Point p3_ = Point(0, 0.5, 0);
+    // Point p1_ = Point(-0.5, -0.5, 0);
+    // Point p2_ = Point(0.5, -0.5, 0);
+    // Point p3_ = Point(0, 0.5, 0);
 
-    Point p4_ = Point(-0.2, -0.2, 0);
-    Point p5_ = Point(0.2, -0.2, 0);
-    Point p6_ = Point(0, 0.2, 0);
+    // Point p4_ = Point(-0.2, -0.2, 0);
+    // Point p5_ = Point(0.2, -0.2, 0);
+    // Point p6_ = Point(0, 0.2, 0);
 
-    std::vector<Point> points = {p4_, p5_, p6_};
+    // std::vector<Point> points = {p4_, p5_, p6_};
 
-    mesh = Mesh(p1_, p2_, p3_);
-    mesh.triangulate_naive(points);
+    // mesh = Mesh(p1_, p2_, p3_);
+    // mesh.triangulate_naive(points);
 
-    points = {Point(-1, -0.8, 0)};
+    // points = {Point(-1, -0.8, 0)};
 
-    mesh.triangulate_naive(points);
+    // mesh.triangulate_naive(points);
+
 
     // mesh.face_neighboring_color(7);
     // mesh.face_neighboring_color(0);
@@ -51,58 +53,15 @@ GeometricWorld::GeometricWorld()
 
     // mesh.face_neighboring_color(7);
 
-    // for(Point p : points){
-    //     std::cout << "inster : (" << p._x << ", " << p._y << ", " << p._z << ")" << std::endl;
-    //     insert_point(p);
-    // }
-
-    // mesh.insert_point(Point(-0.2, -0.2, 0));
-    // mesh.insert_point(Point(0.2, -0.2, 0));
-    // mesh.insert_point(Point(0, 0.2, 0));
-
-    // mesh.triangle_split(0, Point(0, 0, 0));
-
-
-    // std::cout << "start computing normal" << std::endl;
-    // emb_mesh.compute_normal_of_vertex();
-    // std::cout << "end computing normal" << std::endl;
-
-    //mesh.print_face();
-    //std::cout << std::endl;
-    //mesh.print_adj();
-    //std::cout << std::endl;
-
-    // std::cout << "looping throw vertices" << std::endl;
-    // for (Iterator_on_vertices it = mesh.vertices_begin(); it != mesh.vertices_end(); it++){
-    //     mesh.set_vertex_color(*it, 0.0f, 0.5f, 0.0f);
-    // }
-    // std::cout << "finish looping throw vertices" << std::endl;
-    // std::cout << "try a cirvulator on face" << std::endl;
-    // uint vertex_cenral = 1;
-    // Circulator_on_faces it = mesh.circulate_on_face_begin(vertex_cenral);
-
-
-    // for(Circulator_on_faces it = mesh.circulate_on_face_begin(vertex_cenral); it != mesh.circulate_on_face_end(vertex_cenral); it++){
-    //     std::cout << *it << std::endl;
-    //     mesh.set_face_color(*it, 1.0f, 0.0f, 0.0f);
-    // }
-
-    // uint face_central = 0;
-    // for(Circulator_on_vertices it = mesh.circulate_on_vertex_begin(face_central); it != mesh.circulate_on_vertex_end(face_central); it++){
-    //     std::cout << *it << std::endl;
-    //     mesh.set_vertex_color(*it, 0.0f, 0.0f, 1.0f);
-    // }
 
     // emb_mesh.set_color_to_normal();
     // emb_mesh.set_scalar_on_vertex(f_x);
     // emb_mesh.set_color_to_scalar();
     // emb_mesh.compute_laplacian_of_vertex();
     // emb_mesh.set_color_to_laplaian();
-    // emb_mesh.compute_curvature_of_vertex();
+    emb_mesh.compute_curvature_of_vertex();
     
-    // emb_mesh.set_color_to_curvature();
-
-    // mesh.face_neighboring_color(7);
+    emb_mesh.set_color_to_curvature();
 
     // emb_mesh.set_scalar_on_vertex(f_x);
     // emb_mesh.compute_gradient_of_vertex();
@@ -111,117 +70,29 @@ GeometricWorld::GeometricWorld()
 
 
     std::cout << "DONE============================" << std::endl;
+}
 
-  
-}
-double f_x(Point p){
-    return p._x;
-}
-double f_y(Point p){
-    return p._y;
-}
-double f_z(Point p){
-    return p._z;
-}
-double log1(double x){
-    return log(1+x);
-}
+double f_x(Point p){return p._x;}
+double f_y(Point p){return p._y;}
+double f_z(Point p){return p._z;}
+double log1(double x){return log(1+x);}
 
 double direct_orientation(Point p1, Point p2, Point p3){
-    Vector e1 = Vector(p1, p2);
-    Vector e2 = Vector(p1, p3);
-    // std::cout << "Vectors : " << std::endl;
-    // std::cout << "[" << e1.get_x() << ", " << e1.get_y() << ", " << e1.get_z() << "]" << std::endl;
-    // std::cout << "[" << e2.get_x() << ", " << e2.get_y() << ", " << e2.get_z() << "]" << std::endl;
-    // std::cout << "cross : [" << cross(e1, e2).get_x() << ", " << cross(e1, e2).get_y() << ", " << cross(e1, e2).get_z() << "]" << std::endl;
-    std::cout << "result of test : " << cross(e1, e2).get_z() << std::endl;
-    return cross(e1, e2).get_z();
+    return (p2._x-p1._x)*(p3._y-p1._y) - (p2._y-p1._y)*(p3._z-p1._z);
+    // Vector e1 = Vector(p1, p2);
+    // Vector e2 = Vector(p1, p3);
+    // return cross(e1, e2).get_z();
 }
+
 double in_triangle(Point p, Point p1, Point p2, Point p3){
-    // std::cout << "Points : " << std::endl;
-    // std::cout << "(" << p._x << ", " << p._y << ", " << p._z << ")" << std::endl;
-    // std::cout << "(" << p1._x << ", " << p1._y << ", " << p1._z << ")" << std::endl;
-    // std::cout << "(" << p2._x << ", " << p2._y << ", " << p2._z << ")" << std::endl;
-    // std::cout << "(" << p3._x << ", " << p3._y << ", " << p3._z << ")" << std::endl;
     double signe = 1;
     double t1 = direct_orientation(p, p1, p2);
     double t2 = direct_orientation(p, p2, p3);
     double t3 = direct_orientation(p, p3, p1);
-    // std::cout << "in triangle : " << t1 << ", " << t2 << ", " << t3 << std::endl;
     if(t1<=0) signe = -1; 
     if(t2<=0) signe = -1; 
     if(t3<=0) signe = -1; 
-    // std::cout << "signe : " << (signe*abs(t1*t2*t3)) << std::endl;
     return signe*abs(t1*t2*t3);
-}
-
-
-
-
-//===================================================== Utils
-// The following functions could be displaced into a module OpenGLDisplayGeometricWorld that would include mesh.h
-
-// Draw a Point
-void glPointDraw(const Point & p) {
-    glVertex3f(p._x, p._y, p._z);
-}
-
-uint index_of_other(uint a, uint b, std::vector<uint> v){
-    //given 3 uint, return the third uint (not a or b)
-    if(v[0] != a && v[0] != b) return 0;
-    if(v[1] != a && v[1] != b) return 1;
-    return 2;
-}
-uint index_of(uint a, std::vector<uint> v){
-    //given 3 uint, return the third uint (not a or b)
-    if(v[0] == a) return 0;
-    if(v[1] == a) return 1;
-    return 2;
-}
-
-void convert_tsv_to_rgb(std::vector<float>& tsv, std::vector<float>& rgb){
-    // t: teinte (0°-360°)
-    // s: saturation (0-1)
-    // v: valeur, brillance (0-1)
-    float t = tsv[0];
-    float s = tsv[1];
-    float v = tsv[2];
-    int ti = int(floor(tsv[0]/60))%6;
-    float f = tsv[0]/60 - ti;
-    float l = tsv[2] * (1 - tsv[1]);
-    float m = tsv[2] * (1 - f * tsv[1]);
-    float n = tsv[2] * (1 - (1 - f)*tsv[1]);
-
-    if(ti == 0){
-        rgb[0] = v;
-        rgb[1] = n;
-        rgb[2] = l;
-    };
-    if(ti == 1){
-        rgb[0] = m;
-        rgb[1] = v;
-        rgb[2] = l;
-    };
-    if(ti == 2){
-        rgb[0] = l;
-        rgb[1] = v;
-        rgb[2] = n;
-    };
-    if(ti == 3){
-        rgb[0] = l;
-        rgb[1] = m;
-        rgb[2] = v;
-    };
-    if(ti == 4){
-        rgb[0] = n;
-        rgb[1] = l;
-        rgb[2] = v;
-    };
-    if(ti == 5){
-        rgb[0] = v;
-        rgb[1] = l;
-        rgb[2] = m;
-    };
 }
 
 
@@ -259,7 +130,6 @@ Circulator_on_vertices_infinit& Circulator_on_vertices_infinit::operator++(){
 };
 
 
-
 //================================================== MESH
 Iterator_on_faces Mesh::faces_begin(){return Iterator_on_faces(0);}
 Iterator_on_faces Mesh::faces_end(){return Iterator_on_faces(faces_id.size());}
@@ -278,40 +148,7 @@ Circulator_on_faces_infinit Mesh::circulate_on_face_infinit_end(uint vertex_id){
 Circulator_on_vertices_infinit Mesh::circulate_on_vertex_infinit_begin(uint face_id){return Circulator_on_vertices_infinit(face_id, 0, this);}
 Circulator_on_vertices_infinit Mesh::circulate_on_vertex_infinit_end(uint face_id){return Circulator_on_vertices_infinit(face_id, 1, this);}
 
-void Mesh::drawMesh(){
-    for (ulong i = 0; i < faces_id.size(); i++){
-        if(!vertices[faces_id[i][0]].infinit && !vertices[faces_id[i][1]].infinit && !vertices[faces_id[i][2]].infinit){
-            glBegin(GL_TRIANGLES);
-            for (int j = 0; j < 3; j++){
-                glColor3d(vertices_color[faces_id[i][j]][0],vertices_color[faces_id[i][j]][1],vertices_color[faces_id[i][j]][2]);
-                glPointDraw(vertices[faces_id[i][j]].point);
-            }
-            glEnd();
-        }
-    }
-};
-void Mesh::drawMeshWireFrame(){
-    for (ulong i = 0; i < faces_id.size(); i++){
-        for(uint j = 0; j < 3; j++){
-            if(!vertices[faces_id[i][j]].infinit && !vertices[faces_id[i][(j+1)%3]].infinit){
-                glBegin(GL_LINE_STRIP);
-                
-                glPointDraw(vertices[faces_id[i][j]].point);
-                glPointDraw(vertices[faces_id[i][(j+1)%3]].point);
-                glEnd();
-            }else{
-                glLineStipple(15, 0xAAAA);
-                glEnable(GL_LINE_STIPPLE);
-                glBegin(GL_LINE_STRIP);                
-                glPointDraw(vertices[faces_id[i][j]].point);
-                glPointDraw(vertices[faces_id[i][(j+1)%3]].point);
-                glEnd();
-                glDisable(GL_LINE_STIPPLE);
-            }
-        }
-    }
 
-};
 
 void Mesh::compute_adjFaces(){
     std::map<std::tuple<uint, uint>, uint> face_map = std::map<std::tuple<uint, uint>, uint>();
@@ -648,54 +485,53 @@ void Mesh::insert_point(Point p){
     for(auto fit = faces_infinit_begin(); fit != faces_infinit_end(); ++fit){
         // double tmp = in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point);
         if(is_face_infinit(*fit)){
-            // std::cout << "infinit" << std::endl;
-            uint offset = -1;//inner index of infinit point
-            for(uint i = 0; i < 3; i++){
-                if(vertices[faces_id[*fit][i]].infinit)offset = i;
-            }
-            // std::cout << "test on : " << std::endl;
-            // std::cout << "(" << p._x << ", " << p._y << ", " << p._z << ")" << std::endl;
-            // std::cout << "(" << vertices[faces_id[*fit][(offset+1)%3]].point._x << ", " << vertices[faces_id[*fit][(offset+1)%3]].point._y << ", " << vertices[faces_id[*fit][(offset+1)%3]].point._z << ")" << std::endl;
-            // std::cout << "(" << vertices[faces_id[*fit][(offset+2)%3]].point._x << ", " << vertices[faces_id[*fit][(offset+2)%3]].point._y << ", " << vertices[faces_id[*fit][(offset+2)%3]].point._z << ")" << std::endl;
-            // std::cout << "infinit index : " << offset << ", point_id : " << faces_id[*fit][offset] << ", infinit : " << vertices[faces_id[*fit][offset]].infinit << std::endl;
-            // std::cout << "(" << vertices[faces_id[*fit][offset]].point._x << ", " << vertices[faces_id[*fit][offset]].point._y << ", " << vertices[faces_id[*fit][offset]].point._z << ")" << std::endl;
+            // uint offset = -1;//inner index of infinit point
+            // for(uint i = 0; i < 3; i++){
+            //     if(vertices[faces_id[*fit][i]].infinit)offset = i;
+            // }
+            // // std::cout << "test on : " << std::endl;
+            // // std::cout << "(" << p._x << ", " << p._y << ", " << p._z << ")" << std::endl;
+            // // std::cout << "(" << vertices[faces_id[*fit][(offset+1)%3]].point._x << ", " << vertices[faces_id[*fit][(offset+1)%3]].point._y << ", " << vertices[faces_id[*fit][(offset+1)%3]].point._z << ")" << std::endl;
+            // // std::cout << "(" << vertices[faces_id[*fit][(offset+2)%3]].point._x << ", " << vertices[faces_id[*fit][(offset+2)%3]].point._y << ", " << vertices[faces_id[*fit][(offset+2)%3]].point._z << ")" << std::endl;
+            // // std::cout << "infinit index : " << offset << ", point_id : " << faces_id[*fit][offset] << ", infinit : " << vertices[faces_id[*fit][offset]].infinit << std::endl;
+            // // std::cout << "(" << vertices[faces_id[*fit][offset]].point._x << ", " << vertices[faces_id[*fit][offset]].point._y << ", " << vertices[faces_id[*fit][offset]].point._z << ")" << std::endl;
 
-            double tmp = direct_orientation(p, vertices[faces_id[*fit][(offset+1)%3]].point, vertices[faces_id[*fit][(offset+2)%3]].point);
-            // std::cout << "in triangle test " << tmp << std::endl;
-            if(direct_orientation(p, vertices[faces_id[*fit][(offset+1)%3]].point, vertices[faces_id[*fit][(offset+2)%3]].point) > 0){
-                //then we know that the point is outside the convex enveloppe
-                bool found = false;//if we have found an infinit triangle containing our point
-                for(auto fit_inf = circulate_on_face_infinit_begin(faces_id[*fit][offset]); fit_inf != circulate_on_face_infinit_end(faces_id[*fit][offset]); fit_inf++){
-                    //circulate on the convexe enveloppe
-                    if(!found){
-                        uint offset_ = -1;//inner index of infinit point
-                        for(uint i = 0; j < 3; i++){
-                            if(vertices[faces_id[*fit][i]].infinit)offset_ = j;
-                        }
-                        if(direct_orientation(p, vertices[faces_id[*fit_inf][(offset_+1)%3]].point, vertices[faces_id[*fit_inf][(offset_+2)%3]].point) > 0){
-                            found = true;
-                            triangle_split(*fit_inf, p);
-                        }
-                    }else{
-                        uint offset_ = -1;//inner index of infinit point
-                        for(uint i = 0; j < 3; i++){
-                            if(vertices[faces_id[*fit][i]].infinit)offset_ = j;
-                        }
-                        if(direct_orientation(p, vertices[faces_id[*fit_inf][(offset_+1)%3]].point, vertices[faces_id[*fit_inf][(offset_+2)%3]].point) > 0){
-                            //flip with previous triangle
-                            
+            // double tmp = direct_orientation(p, vertices[faces_id[*fit][(offset+1)%3]].point, vertices[faces_id[*fit][(offset+2)%3]].point);
+            // // std::cout << "in triangle test " << tmp << std::endl;
+            // if(direct_orientation(p, vertices[faces_id[*fit][(offset+1)%3]].point, vertices[faces_id[*fit][(offset+2)%3]].point) > 0){
+            //     //then we know that the point is outside the convex enveloppe
+            //     bool found = false;//if we have found an infinit triangle containing our point
+            //     for(auto fit_inf = circulate_on_face_infinit_begin(faces_id[*fit][offset]); fit_inf != circulate_on_face_infinit_end(faces_id[*fit][offset]); fit_inf++){
+            //         //circulate on the convexe enveloppe
+            //         if(!found){
+            //             uint offset_ = -1;//inner index of infinit point
+            //             for(uint i = 0; j < 3; i++){
+            //                 if(vertices[faces_id[*fit][i]].infinit)offset_ = j;
+            //             }
+            //             if(direct_orientation(p, vertices[faces_id[*fit_inf][(offset_+1)%3]].point, vertices[faces_id[*fit_inf][(offset_+2)%3]].point) > 0){
+            //                 found = true;
+            //                 triangle_split(*fit_inf, p);
+            //             }
+            //         }else{
+            //             uint offset_ = -1;//inner index of infinit point
+            //             for(uint i = 0; j < 3; i++){
+            //                 if(vertices[faces_id[*fit][i]].infinit)offset_ = j;
+            //             }
+            //             if(direct_orientation(p, vertices[faces_id[*fit_inf][(offset_+1)%3]].point, vertices[faces_id[*fit_inf][(offset_+2)%3]].point) > 0){
+            //                 //flip with previous triangle
 
-                        }else{
-                            return;
-                        }
-                    }
 
-                }
+            //             }else{
+            //                 return;
+            //             }
+            //         }
 
-                // triangle_split(*fit, p);
-                // std::cout << "find infinit face" << std::endl;
-                return;
-            }
+            //     }
+
+            //     // triangle_split(*fit, p);
+            //     // std::cout << "find infinit face" << std::endl;
+            //     return;
+            // }
         }else{
             if(in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point) > 0){
                 // std::cout << "triangle split : " << *fit << std::endl;
@@ -915,6 +751,20 @@ void Embeded_Mesh::compute_laplacian_of_vertex(){
 
 void Embeded_Mesh::compute_curvature_of_vertex(){
 
+    // std::vector<double> laplacians_coord[3];
+    // std::vector<double (Point)> callbacks = {f_x, f_y, f_z};
+
+    // for(int i = 0; i < 3; i++){
+    //     set_scalar_on_vertex(callbacks[i]);
+    //     compute_laplacian_of_vertex();
+    //     laplacians_coord[i] = laplacians
+    //     laplacians.clear();
+
+    // }
+    // for(int i = 0; i < laplacians.size(); i++){
+    //     curvatures[i] = Vector(laplacians_coord[0][i], laplacians_coord[1][i], laplacians_coord[2][i]).norme()/2.0;
+    // }
+
     set_scalar_on_vertex(f_x);
     compute_laplacian_of_vertex();
     std::vector<double> laplacians_x = laplacians;
@@ -936,33 +786,3 @@ void Embeded_Mesh::compute_curvature_of_vertex(){
 
 }
 
-
-
-//============================================== GEOMETRIC WORLD
-//Example with a bBox
-void GeometricWorld::draw() {
-    glColor3d(0.5,0.5,0.5);
-    mesh.drawMesh();
-}
-
-//Example with a wireframe bBox
-void GeometricWorld::drawWireFrame() {
-    glColor3d(0,1,0);
-    glBegin(GL_LINE_STRIP);
-    glPointDraw(_bBox[0]);
-    glPointDraw(_bBox[1]);
-    glEnd();
-    glColor3d(0,0,1);
-    glBegin(GL_LINE_STRIP);
-    glPointDraw(_bBox[0]);
-    glPointDraw(_bBox[2]);
-    glEnd();
-    glColor3d(1,0,0);
-    glBegin(GL_LINE_STRIP);
-    glPointDraw(_bBox[0]);
-    glPointDraw(_bBox[3]);
-    glEnd();
-
-    glColor3d(1,1,1);
-    mesh.drawMeshWireFrame();
-}

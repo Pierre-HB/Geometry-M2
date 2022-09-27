@@ -10,6 +10,21 @@
 #include <QTimer>
 #include "mesh.h"  // Model
 
+// inline bool boolForButtonMesh = true;
+// inline bool boolForButtonWireframe = true;
+
+// void onClickedMesh_2()
+// {
+//      boolForButtonMesh = !boolForButtonMesh;
+//      // std::cout << "toggle mesh 2" << std::endl;
+// }
+
+// void onClickedWireframe_2()
+// {
+//      boolForButtonWireframe = !boolForButtonWireframe;
+//      // std::cout << "toggle wireframe 2" << std::endl;
+// }
+
 class GLDisplayWidget : public QGLWidget //UpgradeQt6: public QOpenGLWidget
 {
 public:
@@ -34,6 +49,8 @@ private:
     QPoint _lastPosMouse; // To keep the last position of the mouse
 
     GeometricWorld _geomWorld; // The scene to be displayed
+
+
 };
 
 #endif // GLDISPLAYWIDGET_H

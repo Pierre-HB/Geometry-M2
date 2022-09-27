@@ -1,4 +1,5 @@
 #include "gldisplaywidget.h"
+#include "mainwindow.h"
 #ifdef __APPLE__
     #include <glu.h>
 #else
@@ -7,13 +8,25 @@
 
 #include "QDebug"
 
+
+// boolForButtonMesh = true;
+// boolForButtonWireframe = true;
+
+
+
+
+
 GLDisplayWidget::GLDisplayWidget(QWidget *parent) : QGLWidget(parent), _X(0.f), _Y(0.f),_Z(0.f), _angle(0.f)
   //UpgradeQt6: replace by : QOpenGLWidget(parent)
 {
     // Update the scene
     connect( &_timer, SIGNAL(timeout()), this, SLOT(updateGL())); //UpgradeQt6: connect( &_timer, SIGNAL(timeout()), this, SLOT(update()));
     _timer.start(16); // Starts or restarts the timer with a timeout interval of 16 milliseconds.
+    
+    
 }
+
+
 
 void GLDisplayWidget::initializeGL()
 {
@@ -50,8 +63,11 @@ void GLDisplayWidget::paintGL(){
 
     // example with a tetraedre
     
-    // _geomWorld.draw();
-    _geomWorld.drawWireFrame();
+    // if(boolForButtonMesh)_geomWorld.draw();
+    // if(boolForButtonWireframe)_geomWorld.drawWireFrame();
+
+    if(MainWindow::bForButtonMesh)_geomWorld.draw();
+    if(MainWindow::bForButtonWireframe)_geomWorld.drawWireFrame();
     //_geomWorld.draw();
 }
 
@@ -97,3 +113,5 @@ void GLDisplayWidget::wheelEvent(QWheelEvent *event) {
       _Z = (numDegrees.x() > 0 || numDegrees.y() > 0) ? _Z + stepZoom : _Z - stepZoom;
     }
 }
+
+
