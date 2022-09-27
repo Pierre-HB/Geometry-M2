@@ -6,17 +6,35 @@ Circulator_on_faces& Circulator_on_faces::operator++() {
     if(face_id == first_face_id)rank++;
     return *this;
 }
+
+Circulator_on_faces& Circulator_on_faces::operator--() {
+    uint id_on_face = index_of(vertex_id, mesh->faces_id[face_id]);
+    face_id = mesh->adjFaces_id[face_id][(id_on_face+2)%3];
+    if(face_id == first_face_id)rank--;
+    return *this;
+}
+
 Circulator_on_vertices::reference Circulator_on_vertices::operator*(){
     return mesh->faces_id[face_id][inner_vertex_id];
 }
 Circulator_on_vertices::pointer Circulator_on_vertices::operator->(){
     return &(mesh->faces_id[face_id][inner_vertex_id]);
 }
+
 Circulator_on_vertices& Circulator_on_vertices::operator++(){
     inner_vertex_id++;
     if(inner_vertex_id == 3){
         inner_vertex_id = 0;
         rank++;
+    }
+    return *this;
+};
+Circulator_on_vertices& Circulator_on_vertices::operator--(){
+    if(inner_vertex_id == 0){
+        inner_vertex_id = 2;
+        rank--;
+    }else{
+        inner_vertex_id--;
     }
     return *this;
 };

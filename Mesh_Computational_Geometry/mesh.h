@@ -218,9 +218,11 @@ struct Iterator_on_faces
 
     // Prefix increment
     Iterator_on_faces& operator++() { face_id++; return *this; }
+    Iterator_on_faces& operator--() { face_id--; return *this; }
 
     // Postfix increment
     Iterator_on_faces operator++(int) { Iterator_on_faces tmp = *this; ++(*this); return tmp; }
+    Iterator_on_faces operator--(int) { Iterator_on_faces tmp = *this; --(*this); return tmp; }
 
     friend bool operator== (const Iterator_on_faces& a, const Iterator_on_faces& b) { return a.face_id == b.face_id; };
     friend bool operator!= (const Iterator_on_faces& a, const Iterator_on_faces& b) { return a.face_id != b.face_id; };
@@ -245,9 +247,11 @@ struct Circulator_on_faces
 
     // Prefix increment
     Circulator_on_faces& operator++();
+    Circulator_on_faces& operator--();
 
     // Postfix increment
     Circulator_on_faces operator++(int) { Circulator_on_faces tmp = *this; ++(*this); return tmp; }
+    Circulator_on_faces operator--(int) { Circulator_on_faces tmp = *this; --(*this); return tmp; }
 
     friend bool operator== (const Circulator_on_faces& a, const Circulator_on_faces& b) { return (a.face_id == b.face_id) && (a.rank == b.rank); };
     friend bool operator!= (const Circulator_on_faces& a, const Circulator_on_faces& b) { return (a.face_id != b.face_id) || (a.rank != b.rank); };
@@ -276,9 +280,11 @@ struct Circulator_on_vertices
 
     // Prefix increment
     Circulator_on_vertices& operator++();
+    Circulator_on_vertices& operator--();
 
     // Postfix increment
     Circulator_on_vertices operator++(int) { Circulator_on_vertices tmp = *this; ++(*this); return tmp; }
+    Circulator_on_vertices operator--(int) { Circulator_on_vertices tmp = *this; --(*this); return tmp; }
 
     friend bool operator== (const Circulator_on_vertices& a, const Circulator_on_vertices& b) { return (a.inner_vertex_id == b.inner_vertex_id) && (a.rank == b.rank); };
     friend bool operator!= (const Circulator_on_vertices& a, const Circulator_on_vertices& b) { return (a.inner_vertex_id != b.inner_vertex_id) || (a.rank != b.rank); };
