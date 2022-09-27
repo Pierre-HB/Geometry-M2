@@ -419,7 +419,8 @@ mesh.o: ../Mesh_Computational_Geometry/mesh.cpp ../Mesh_Computational_Geometry/m
 		../Mesh_Computational_Geometry/gldisplaywidget.h \
 		../Mesh_Computational_Geometry/m_utils.cpp \
 		../Mesh_Computational_Geometry/iterators.cpp \
-		../Mesh_Computational_Geometry/embededMesh.cpp
+		../Mesh_Computational_Geometry/embededMesh.cpp \
+		../Mesh_Computational_Geometry/mesh_triangulation.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mesh.o ../Mesh_Computational_Geometry/mesh.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

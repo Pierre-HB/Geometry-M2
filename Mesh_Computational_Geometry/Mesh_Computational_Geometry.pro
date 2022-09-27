@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     mesh.cpp \
     m_utils.cpp \
     iterators.cpp \
-    embededMesh.cpp
+    embededMesh.cpp \
+    mesh_triangulation.cpp
 
 HEADERS  += mainwindow.h \
     gldisplaywidget.h \
