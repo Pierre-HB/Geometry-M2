@@ -29,3 +29,51 @@ double dot(const Vector& a, const Vector& b){
 Vector cross(const Vector& a, const Vector& b){
     return Vector(a.y*b.z-a.z*b.y, a.z*b.x-a.x*b.z, a.x*b.y-a.y*b.x);
 }
+
+void GeometricWorld::load_queen(){
+    std::cout << "load queen" << std::endl;
+    mesh = Mesh("../queen.off");
+    emb_mesh = Embeded_Mesh(&mesh);
+}
+void GeometricWorld::set_color_to_normal(){
+    std::cout << "compute normals" << std::endl;
+    emb_mesh.compute_normal_of_vertex();
+    emb_mesh.set_color_to_normal();
+}
+void GeometricWorld::set_color_to_curvature(){
+    std::cout << "compute curvatures" << std::endl;
+    emb_mesh.compute_curvature_of_vertex();
+    emb_mesh.set_color_to_curvature();
+}
+void GeometricWorld::load_triangle(){
+    std::cout << "load triangle" << std::endl;
+    Point p1 = Point(-0.5, -0.5, 0);
+    Point p2 = Point(0.5, -0.5, 0);
+    Point p3 = Point(0, 0.5, 0);
+    mesh = Mesh(p1, p2, p3);
+}
+void GeometricWorld::add_point(){
+    std::cout << "TODO add a point" << std::endl;
+}
+void GeometricWorld::update(){
+    if(MainWindow::bForButtonQueen){
+        load_queen();
+        MainWindow::bForButtonQueen = false;
+    }
+    if(MainWindow::bForButtonNormal){
+        set_color_to_normal();
+        MainWindow::bForButtonNormal = false;
+    }
+    if(MainWindow::bForButtonCurvature){
+        set_color_to_curvature();
+        MainWindow::bForButtonCurvature = false;
+    }
+    if(MainWindow::bForButtonTriangle){
+        load_triangle();
+        MainWindow::bForButtonTriangle = false;
+    }
+    if(MainWindow::bForButtonAddPoint){
+        add_point();
+        MainWindow::bForButtonAddPoint = false;
+    }
+}

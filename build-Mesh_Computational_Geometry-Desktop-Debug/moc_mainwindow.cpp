@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[14];
-    char stringdata0[155];
+    char stringdata0[186];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,23 +36,23 @@ QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 13), // "onClickedMesh"
 QT_MOC_LITERAL(2, 25, 0), // ""
 QT_MOC_LITERAL(3, 26, 18), // "onClickedWireframe"
-QT_MOC_LITERAL(4, 45, 10), // "onClicked0"
-QT_MOC_LITERAL(5, 56, 10), // "onClicked1"
-QT_MOC_LITERAL(6, 67, 10), // "onClicked2"
-QT_MOC_LITERAL(7, 78, 10), // "onClicked3"
-QT_MOC_LITERAL(8, 89, 10), // "onClicked4"
-QT_MOC_LITERAL(9, 100, 10), // "onClicked5"
-QT_MOC_LITERAL(10, 111, 10), // "onClicked6"
-QT_MOC_LITERAL(11, 122, 10), // "onClicked7"
-QT_MOC_LITERAL(12, 133, 10), // "onClicked8"
-QT_MOC_LITERAL(13, 144, 10) // "onClicked9"
+QT_MOC_LITERAL(4, 45, 14), // "onClickedQueen"
+QT_MOC_LITERAL(5, 60, 15), // "onClickedNormal"
+QT_MOC_LITERAL(6, 76, 18), // "onClickedCurvature"
+QT_MOC_LITERAL(7, 95, 17), // "onClickedTriangle"
+QT_MOC_LITERAL(8, 113, 17), // "onClickedAddPoint"
+QT_MOC_LITERAL(9, 131, 10), // "onClicked5"
+QT_MOC_LITERAL(10, 142, 10), // "onClicked6"
+QT_MOC_LITERAL(11, 153, 10), // "onClicked7"
+QT_MOC_LITERAL(12, 164, 10), // "onClicked8"
+QT_MOC_LITERAL(13, 175, 10) // "onClicked9"
 
     },
     "MainWindow\0onClickedMesh\0\0onClickedWireframe\0"
-    "onClicked0\0onClicked1\0onClicked2\0"
-    "onClicked3\0onClicked4\0onClicked5\0"
-    "onClicked6\0onClicked7\0onClicked8\0"
-    "onClicked9"
+    "onClickedQueen\0onClickedNormal\0"
+    "onClickedCurvature\0onClickedTriangle\0"
+    "onClickedAddPoint\0onClicked5\0onClicked6\0"
+    "onClicked7\0onClicked8\0onClicked9"
 };
 #undef QT_MOC_LITERAL
 
@@ -108,11 +108,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->onClickedMesh(); break;
         case 1: _t->onClickedWireframe(); break;
-        case 2: _t->onClicked0(); break;
-        case 3: _t->onClicked1(); break;
-        case 4: _t->onClicked2(); break;
-        case 5: _t->onClicked3(); break;
-        case 6: _t->onClicked4(); break;
+        case 2: _t->onClickedQueen(); break;
+        case 3: _t->onClickedNormal(); break;
+        case 4: _t->onClickedCurvature(); break;
+        case 5: _t->onClickedTriangle(); break;
+        case 6: _t->onClickedAddPoint(); break;
         case 7: _t->onClicked5(); break;
         case 8: _t->onClicked6(); break;
         case 9: _t->onClicked7(); break;

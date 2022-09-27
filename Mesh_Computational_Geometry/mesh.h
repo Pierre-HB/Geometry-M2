@@ -318,10 +318,18 @@ class GeometricWorld //Here used to create a singleton instance
 {
   QVector<Point> _bBox;  // Bounding box
   Mesh mesh; // object to display
+  Embeded_Mesh emb_mesh; // object to display
 public :
   GeometricWorld();
   void draw();
   void drawWireFrame();
+  void load_queen();
+  void set_color_to_normal();
+  void set_color_to_curvature();
+  void load_triangle();
+  void add_point();
+
+  void update();
   // ** TP Can be extended with further elements;
   // Mesh _mesh;
 };

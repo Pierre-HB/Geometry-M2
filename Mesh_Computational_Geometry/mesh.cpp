@@ -5,6 +5,8 @@
 #include <string>
 #include <math.h>
 #include "OpenGLDisplayGeometricWorld.h"
+#include "mainwindow.h"
+
 
 GeometricWorld::GeometricWorld()
 {
@@ -24,24 +26,26 @@ GeometricWorld::GeometricWorld()
     std::vector<std::vector<uint>> faces = { {1, 2, 3}, {0, 2, 3}, {0, 3, 1}, {0, 1, 2} };
 
     // mesh = Mesh(faces, vertices);
-    std::string file = "../queen.off";
+    // std::string file = "../queen.off";
     // std::string file = "../tetra.off";
-    mesh = Mesh(file);
-    Embeded_Mesh emb_mesh = Embeded_Mesh(&mesh);
+    // mesh = Mesh(file);
+    // Embeded_Mesh emb_mesh = Embeded_Mesh(&mesh);
 
 
-    // Point p1_ = Point(-0.5, -0.5, 0);
-    // Point p2_ = Point(0.5, -0.5, 0);
-    // Point p3_ = Point(0, 0.5, 0);
+    Point p1_ = Point(-0.5, -0.5, 0);
+    Point p2_ = Point(0.5, -0.5, 0);
+    Point p3_ = Point(0, 0.5, 0);
 
-    // Point p4_ = Point(-0.2, -0.2, 0);
-    // Point p5_ = Point(0.2, -0.2, 0);
-    // Point p6_ = Point(0, 0.2, 0);
+    Point p4_ = Point(-0.2, -0.2, 0);
+    Point p5_ = Point(0.2, -0.2, 0);
+    Point p6_ = Point(0, 0.2, 0);
 
-    // std::vector<Point> points = {p4_, p5_, p6_};
+    std::vector<Point> points = {p4_, p5_, p6_};
 
-    // mesh = Mesh(p1_, p2_, p3_);
-    // mesh.triangulate_naive(points);
+    mesh = Mesh(p1_, p2_, p3_);
+    mesh.triangulate_naive(points);
+
+    emb_mesh = Embeded_Mesh(&mesh);
 
     // points = {Point(-1, -0.8, 0)};
 
@@ -60,9 +64,9 @@ GeometricWorld::GeometricWorld()
     // emb_mesh.set_color_to_scalar();
     // emb_mesh.compute_laplacian_of_vertex();
     // emb_mesh.set_color_to_laplaian();
-    emb_mesh.compute_curvature_of_vertex();
+    // emb_mesh.compute_curvature_of_vertex();
     
-    emb_mesh.set_color_to_curvature();
+    // emb_mesh.set_color_to_curvature();
 
     // emb_mesh.set_scalar_on_vertex(f_x);
     // emb_mesh.compute_gradient_of_vertex();
@@ -73,8 +77,10 @@ GeometricWorld::GeometricWorld()
     std::cout << "DONE============================" << std::endl;
 }
 
+
 #include "m_utils.cpp"
 #include "iterators.cpp"
+#include "embededMesh.cpp"
 
 void Mesh::compute_adjFaces(){
     std::map<std::tuple<uint, uint>, uint> face_map = std::map<std::tuple<uint, uint>, uint>();
@@ -244,9 +250,6 @@ void Mesh::triangle_split(uint face_id, Point p){
     vertices.push_back(v);
     // std::cout << "creating color" << std::endl;
     std::vector<float> tmp = std::vector<float>({0.0, 0.0, 0.0});
-    // tmp[0] = 0.0;
-    // tmp[1] = 0.0;
-    // tmp[2] = 0.0;
     vertices_color.push_back(tmp);
 
     //adding the two new faces
@@ -273,12 +276,9 @@ void Mesh::triangle_split(uint face_id, Point p){
     vertices[vertex_id].face_id = f0;
 
     //managing adjacent faces
-    // std::cout << "manage adj" << std::endl;
-
     uint adjf0 = adjFaces_id[f0][0];
     uint adjf1 = adjFaces_id[f0][1];
 
-    // std::cout << "temp" << std::endl;
     adjFaces_id[f0][0] = f1;
     adjFaces_id[f0][1] = f2;
 
@@ -290,16 +290,11 @@ void Mesh::triangle_split(uint face_id, Point p){
     adjFaces_id[f2][1] = f1;
     adjFaces_id[f2][2] = adjf1;
 
-    // std::cout << "search of index" << std::endl;
-
     uint inner_f0_0 = index_of(f0, adjFaces_id[adjf0]);
     uint inner_f0_1 = index_of(f0, adjFaces_id[adjf1]);
 
-    // std::cout << "find index" << std::endl;
     adjFaces_id[adjf0][inner_f0_0] = f1;
     adjFaces_id[adjf1][inner_f0_1] = f2;
-
-    // std::cout << "end split" << std::endl;
 }
 
 void Mesh::edge_flip(uint face_id1, uint face_id2){
@@ -464,4 +459,3 @@ void Mesh::face_neighboring_color(uint face_id){
 }
 
 
-#include "embededMesh.cpp"
