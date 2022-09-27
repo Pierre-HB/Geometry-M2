@@ -352,64 +352,9 @@ void Mesh::edge_flip(uint face_id1, uint face_id2){
 }
 
 void Mesh::insert_point(Point p){
+    std::cout << "instert a new point" << std::endl;
     for(auto fit = faces_begin(); fit != faces_end(); ++fit){
-        // double tmp = in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point);
-        // if(is_face_infinit(*fit)){
-        //     // uint offset = -1;//inner index of infinit point
-        //     // for(uint i = 0; i < 3; i++){
-        //     //     if(vertices[faces_id[*fit][i]].infinit)offset = i;
-        //     // }
-        //     // // std::cout << "test on : " << std::endl;
-        //     // // std::cout << "(" << p._x << ", " << p._y << ", " << p._z << ")" << std::endl;
-        //     // // std::cout << "(" << vertices[faces_id[*fit][(offset+1)%3]].point._x << ", " << vertices[faces_id[*fit][(offset+1)%3]].point._y << ", " << vertices[faces_id[*fit][(offset+1)%3]].point._z << ")" << std::endl;
-        //     // // std::cout << "(" << vertices[faces_id[*fit][(offset+2)%3]].point._x << ", " << vertices[faces_id[*fit][(offset+2)%3]].point._y << ", " << vertices[faces_id[*fit][(offset+2)%3]].point._z << ")" << std::endl;
-        //     // // std::cout << "infinit index : " << offset << ", point_id : " << faces_id[*fit][offset] << ", infinit : " << vertices[faces_id[*fit][offset]].infinit << std::endl;
-        //     // // std::cout << "(" << vertices[faces_id[*fit][offset]].point._x << ", " << vertices[faces_id[*fit][offset]].point._y << ", " << vertices[faces_id[*fit][offset]].point._z << ")" << std::endl;
-
-        //     // double tmp = direct_orientation(p, vertices[faces_id[*fit][(offset+1)%3]].point, vertices[faces_id[*fit][(offset+2)%3]].point);
-        //     // // std::cout << "in triangle test " << tmp << std::endl;
-        //     // if(direct_orientation(p, vertices[faces_id[*fit][(offset+1)%3]].point, vertices[faces_id[*fit][(offset+2)%3]].point) > 0){
-        //     //     //then we know that the point is outside the convex enveloppe
-        //     //     bool found = false;//if we have found an infinit triangle containing our point
-        //     //     for(auto fit_inf = circulate_on_face_infinit_begin(faces_id[*fit][offset]); fit_inf != circulate_on_face_infinit_end(faces_id[*fit][offset]); fit_inf++){
-        //     //         //circulate on the convexe enveloppe
-        //     //         if(!found){
-        //     //             uint offset_ = -1;//inner index of infinit point
-        //     //             for(uint i = 0; j < 3; i++){
-        //     //                 if(vertices[faces_id[*fit][i]].infinit)offset_ = j;
-        //     //             }
-        //     //             if(direct_orientation(p, vertices[faces_id[*fit_inf][(offset_+1)%3]].point, vertices[faces_id[*fit_inf][(offset_+2)%3]].point) > 0){
-        //     //                 found = true;
-        //     //                 triangle_split(*fit_inf, p);
-        //     //             }
-        //     //         }else{
-        //     //             uint offset_ = -1;//inner index of infinit point
-        //     //             for(uint i = 0; j < 3; i++){
-        //     //                 if(vertices[faces_id[*fit][i]].infinit)offset_ = j;
-        //     //             }
-        //     //             if(direct_orientation(p, vertices[faces_id[*fit_inf][(offset_+1)%3]].point, vertices[faces_id[*fit_inf][(offset_+2)%3]].point) > 0){
-        //     //                 //flip with previous triangle
-
-
-        //     //             }else{
-        //     //                 return;
-        //     //             }
-        //     //         }
-
-        //     //     }
-
-        //     //     // triangle_split(*fit, p);
-        //     //     // std::cout << "find infinit face" << std::endl;
-        //     //     return;
-        //     // }
-        // }else{
-        //     if(in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point) > 0){
-        //         std::cout << "triangle split : " << *fit << std::endl;
-        //         // std::cout << "signe : " << tmp;
-        //         triangle_split(*fit, p);
-        //         return;
-        //     }
-        // }
+        std::cout << "infinit face : " << is_face_infinit(*fit) << std::endl;
         if(in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point) > 0){
             std::cout << "triangle split : " << *fit << std::endl;
             // std::cout << "signe : " << tmp;
@@ -418,6 +363,74 @@ void Mesh::insert_point(Point p){
         }
     }
 }
+
+// void Mesh::insert_point(Point p){
+//     for(auto fit = faces_begin(); fit != faces_end(); ++fit){
+//         // double tmp = in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point);
+//         // if(is_face_infinit(*fit)){
+//         //     // uint offset = -1;//inner index of infinit point
+//         //     // for(uint i = 0; i < 3; i++){
+//         //     //     if(vertices[faces_id[*fit][i]].infinit)offset = i;
+//         //     // }
+//         //     // // std::cout << "test on : " << std::endl;
+//         //     // // std::cout << "(" << p._x << ", " << p._y << ", " << p._z << ")" << std::endl;
+//         //     // // std::cout << "(" << vertices[faces_id[*fit][(offset+1)%3]].point._x << ", " << vertices[faces_id[*fit][(offset+1)%3]].point._y << ", " << vertices[faces_id[*fit][(offset+1)%3]].point._z << ")" << std::endl;
+//         //     // // std::cout << "(" << vertices[faces_id[*fit][(offset+2)%3]].point._x << ", " << vertices[faces_id[*fit][(offset+2)%3]].point._y << ", " << vertices[faces_id[*fit][(offset+2)%3]].point._z << ")" << std::endl;
+//         //     // // std::cout << "infinit index : " << offset << ", point_id : " << faces_id[*fit][offset] << ", infinit : " << vertices[faces_id[*fit][offset]].infinit << std::endl;
+//         //     // // std::cout << "(" << vertices[faces_id[*fit][offset]].point._x << ", " << vertices[faces_id[*fit][offset]].point._y << ", " << vertices[faces_id[*fit][offset]].point._z << ")" << std::endl;
+
+//         //     // double tmp = direct_orientation(p, vertices[faces_id[*fit][(offset+1)%3]].point, vertices[faces_id[*fit][(offset+2)%3]].point);
+//         //     // // std::cout << "in triangle test " << tmp << std::endl;
+//         //     // if(direct_orientation(p, vertices[faces_id[*fit][(offset+1)%3]].point, vertices[faces_id[*fit][(offset+2)%3]].point) > 0){
+//         //     //     //then we know that the point is outside the convex enveloppe
+//         //     //     bool found = false;//if we have found an infinit triangle containing our point
+//         //     //     for(auto fit_inf = circulate_on_face_infinit_begin(faces_id[*fit][offset]); fit_inf != circulate_on_face_infinit_end(faces_id[*fit][offset]); fit_inf++){
+//         //     //         //circulate on the convexe enveloppe
+//         //     //         if(!found){
+//         //     //             uint offset_ = -1;//inner index of infinit point
+//         //     //             for(uint i = 0; j < 3; i++){
+//         //     //                 if(vertices[faces_id[*fit][i]].infinit)offset_ = j;
+//         //     //             }
+//         //     //             if(direct_orientation(p, vertices[faces_id[*fit_inf][(offset_+1)%3]].point, vertices[faces_id[*fit_inf][(offset_+2)%3]].point) > 0){
+//         //     //                 found = true;
+//         //     //                 triangle_split(*fit_inf, p);
+//         //     //             }
+//         //     //         }else{
+//         //     //             uint offset_ = -1;//inner index of infinit point
+//         //     //             for(uint i = 0; j < 3; i++){
+//         //     //                 if(vertices[faces_id[*fit][i]].infinit)offset_ = j;
+//         //     //             }
+//         //     //             if(direct_orientation(p, vertices[faces_id[*fit_inf][(offset_+1)%3]].point, vertices[faces_id[*fit_inf][(offset_+2)%3]].point) > 0){
+//         //     //                 //flip with previous triangle
+
+
+//         //     //             }else{
+//         //     //                 return;
+//         //     //             }
+//         //     //         }
+
+//         //     //     }
+
+//         //     //     // triangle_split(*fit, p);
+//         //     //     // std::cout << "find infinit face" << std::endl;
+//         //     //     return;
+//         //     // }
+//         // }else{
+//         //     if(in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point) > 0){
+//         //         std::cout << "triangle split : " << *fit << std::endl;
+//         //         // std::cout << "signe : " << tmp;
+//         //         triangle_split(*fit, p);
+//         //         return;
+//         //     }
+//         // }
+//         if(in_triangle(p, vertices[faces_id[*fit][0]].point, vertices[faces_id[*fit][1]].point, vertices[faces_id[*fit][2]].point) > 0){
+//             std::cout << "triangle split : " << *fit << std::endl;
+//             // std::cout << "signe : " << tmp;
+//             triangle_split(*fit, p);
+//             return;
+//         }
+//     }
+// }
 void Mesh::triangulate_naive(std::vector<Point> points){
     for(Point p : points){
         std::cout << "inster : (" << p._x << ", " << p._y << ", " << p._z << ")" << std::endl;

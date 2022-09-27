@@ -368,6 +368,8 @@ compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
 moc_mainwindow.cpp: ../Mesh_Computational_Geometry/mainwindow.h \
+		../Mesh_Computational_Geometry/gldisplaywidget.h \
+		../Mesh_Computational_Geometry/mesh.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/pierrehb/Documents/geometry/TP1/GAM2022_Seance1/build-Mesh_Computational_Geometry-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/pierrehb/Documents/geometry/TP1/GAM2022_Seance1/Mesh_Computational_Geometry -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Mesh_Computational_Geometry/mainwindow.h -o moc_mainwindow.cpp
@@ -395,20 +397,29 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../Mesh_Computational_Geometry/main.cpp ../Mesh_Computational_Geometry/mainwindow.h
+main.o: ../Mesh_Computational_Geometry/main.cpp ../Mesh_Computational_Geometry/mainwindow.h \
+		../Mesh_Computational_Geometry/gldisplaywidget.h \
+		../Mesh_Computational_Geometry/mesh.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Mesh_Computational_Geometry/main.cpp
 
 mainwindow.o: ../Mesh_Computational_Geometry/mainwindow.cpp ../Mesh_Computational_Geometry/mainwindow.h \
-		ui_mainwindow.h \
 		../Mesh_Computational_Geometry/gldisplaywidget.h \
-		../Mesh_Computational_Geometry/mesh.h
+		../Mesh_Computational_Geometry/mesh.h \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Mesh_Computational_Geometry/mainwindow.cpp
 
 gldisplaywidget.o: ../Mesh_Computational_Geometry/gldisplaywidget.cpp ../Mesh_Computational_Geometry/gldisplaywidget.h \
-		../Mesh_Computational_Geometry/mesh.h
+		../Mesh_Computational_Geometry/mesh.h \
+		../Mesh_Computational_Geometry/mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gldisplaywidget.o ../Mesh_Computational_Geometry/gldisplaywidget.cpp
 
-mesh.o: ../Mesh_Computational_Geometry/mesh.cpp ../Mesh_Computational_Geometry/mesh.h
+mesh.o: ../Mesh_Computational_Geometry/mesh.cpp ../Mesh_Computational_Geometry/mesh.h \
+		../Mesh_Computational_Geometry/OpenGLDisplayGeometricWorld.h \
+		../Mesh_Computational_Geometry/mainwindow.h \
+		../Mesh_Computational_Geometry/gldisplaywidget.h \
+		../Mesh_Computational_Geometry/m_utils.cpp \
+		../Mesh_Computational_Geometry/iterators.cpp \
+		../Mesh_Computational_Geometry/embededMesh.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mesh.o ../Mesh_Computational_Geometry/mesh.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

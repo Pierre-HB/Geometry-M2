@@ -4,10 +4,10 @@ double f_z(Point p){return p._z;}
 double log1(double x){return log(1+x);}
 
 double direct_orientation(Point p1, Point p2, Point p3){
-    return (p2._x-p1._x)*(p3._y-p1._y) - (p2._y-p1._y)*(p3._z-p1._z);
-    // Vector e1 = Vector(p1, p2);
-    // Vector e2 = Vector(p1, p3);
-    // return cross(e1, e2).get_z();
+    // return (p2._x-p1._x)*(p3._y-p1._y) - (p2._y-p1._y)*(p3._z-p1._z);
+    Vector e1 = Vector(p1, p2);
+    Vector e2 = Vector(p1, p3);
+    return cross(e1, e2).get_z();
 }
 
 double in_triangle(Point p, Point p1, Point p2, Point p3){
@@ -17,7 +17,8 @@ double in_triangle(Point p, Point p1, Point p2, Point p3){
     double t3 = direct_orientation(p, p3, p1);
     if(t1<=0) signe = -1; 
     if(t2<=0) signe = -1; 
-    if(t3<=0) signe = -1; 
+    if(t3<=0) signe = -1;
+    std::cout << "in triangle : " << t1 << ", " << t2 << ", " << t3 << ", output : " << signe*abs(t1*t2*t3) << std::endl;
     return signe*abs(t1*t2*t3);
 }
 

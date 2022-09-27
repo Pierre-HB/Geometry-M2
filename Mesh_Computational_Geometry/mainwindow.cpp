@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    MainWindow::bForButtonMesh = true;
+    MainWindow::bForButtonMesh = false;
     MainWindow::bForButtonWireframe = true;
     MainWindow::bForButtonQueen = false;
     MainWindow::bForButtonNormal = false;
